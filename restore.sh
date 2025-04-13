@@ -1,8 +1,8 @@
 #!/bin/bash
 # Docker Hub Configuration
-DOCKER_HUB_USERNAME="ap0412" # điền username
-DOCKER_HUB_PASSWORD=""  # điền password
-DOCKER_HUB_REPO="ap0412/gitlab-backup" #Điền tên repository (vd: username/gitlab-backup)
+DOCKER_HUB_USERNAME="username" # điền username
+DOCKER_HUB_PASSWORD="userpassword"  # điền password
+DOCKER_HUB_REPO="username/gitlab-backup" #Điền tên repository (vd: username/gitlab-backup)
 
 # GitLab directories
 GITLAB_CONFIG="/etc/gitlab"
