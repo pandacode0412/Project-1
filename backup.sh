@@ -10,6 +10,28 @@ GITLAB_BACKUP_DIR="/var/opt/gitlab/backups"
 TEMP_DIR="/tmp/gitlab_backup_$$"
 
 
+# Colors for output
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+# Print functions
+print_message() {
+    echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] $1${NC}"
+}
+
+print_warning() {
+    echo -e "${YELLOW}[$(date +'%Y-%m-%d %H:%M:%S')] WARNING: $1${NC}"
+}
+
+print_error() {
+    echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: $1${NC}"
+    exit 1
+}
+
+
+
 ensure_rsync() {
     print_message "Checking rsync installation..."
     if ! command -v rsync > /dev/null; then

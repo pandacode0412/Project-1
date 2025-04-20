@@ -10,6 +10,28 @@ GITLAB_BACKUP_DIR="/var/opt/gitlab/backups"
 TEMP_DIR="/tmp/gitlab_restore_$$"
 
 
+# Colors for output
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+# Print functions
+print_message() {
+    echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] $1${NC}"
+}
+
+print_warning() {
+    echo -e "${YELLOW}[$(date +'%Y-%m-%d %H:%M:%S')] WARNING: $1${NC}"
+}
+
+print_error() {
+    echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: $1${NC}"
+    exit 1
+}
+
+
+
 ensure_docker_installed() {
     print_message "Checking Docker installation..."
     
@@ -147,9 +169,8 @@ case "$1" in
         list_backups
         ;;
     *)
-        echo "Usage: $0 {restore|list} [backup_tag]"
+        echo "Usage: $0 {restore} [backup_tag]"
         echo "Commands:"
-        echo "  list              List all available backups"
         echo "  restore <tag>     Restore from specified backup"
         echo ""
         echo "Examples:"
