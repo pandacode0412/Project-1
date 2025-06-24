@@ -1,19 +1,31 @@
-- name: Install nginx
-  apt:
-    name: nginx
-    state: present
+- name: Sample AWX Playbook for Ubuntu Servers
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
 
-- name: Allow HTTP traffic
-  ufw:
-    rule: allow
-    port: 80
-    proto: tcp
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
 
-- name: Allow HTTPS traffic
-  ufw:
-    rule: allow
-    port: 443
-    proto: tcp
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
 
-- name: Reload UFW
-  command: ufw reload
+    - name: Create a test HTML file
+      copy:
+        content: "<html><body><h1>Hello from AWX!</h1></body></html>"
+        dest: /var/www/html/index.html
+
+    - name: Ensure proper permissions on web content
+      file:
+        path: /var/www/html
+        owner: www-data
+        group: www-data
+        mode: '0755'
+        recurse: yes
